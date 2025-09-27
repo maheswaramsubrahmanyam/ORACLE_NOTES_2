@@ -613,7 +613,7 @@ END;
 ---
 
 
-
+# Extra Explination for Question 19 Describe about concepts and features of object oriented programming (oop).
 
 
 the question **“Describe about concepts and features of object oriented programming (OOP)”** usually belongs to **Java / C++ / general programming**, not to **Oracle SQL**.
