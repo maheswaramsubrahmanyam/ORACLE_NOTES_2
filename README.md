@@ -381,3 +381,234 @@ END;
 
 ---
 
+
+# SECTION - C (30 Marks)
+
+### 16. Describe about Data Definition Language (DDL)
+- **Definition**:  
+  Data Definition Language (DDL) is a set of SQL commands used to define, create, modify, and delete database structures such as tables, indexes, views, and schemas.  
+  It is responsible for the **structure and schema** of the database rather than the data itself.  
+
+- **Theory**:  
+  - DDL commands are **auto-committed**, meaning changes are permanent.  
+  - They deal with the **logical structure** of the database.  
+  - DDL is used by database administrators and designers.  
+
+- **Main Commands**:  
+  1. **CREATE** → Creates new database objects.  
+  2. **ALTER** → Modifies existing objects.  
+  3. **DROP** → Removes objects permanently.  
+  4. **TRUNCATE** → Removes all rows from a table, but keeps structure.  
+  5. **RENAME** → Changes the name of a database object.  
+
+- **Syntax & Example**:  
+  ```sql
+  CREATE TABLE Employee (
+     emp_id NUMBER PRIMARY KEY,
+     emp_name VARCHAR2(50),
+     salary NUMBER(10,2),
+     dept_id NUMBER
+  );
+
+  ALTER TABLE Employee ADD (email VARCHAR2(100));
+  DROP TABLE Employee;
+  ```
+
+* **Explanation**:
+
+  * `CREATE` builds the initial structure.
+  * `ALTER` allows schema evolution without data loss.
+  * `DROP` permanently removes objects.
+  * `TRUNCATE` is faster than `DELETE` since it does not log each row.
+
+* **Conclusion**:
+  DDL forms the **foundation of database design** and is crucial for defining how data is stored and accessed.
+
+---
+
+### 17. What is a Join? Explain types of it.
+
+* **Definition**:
+  A **JOIN** is an SQL operation used to combine rows from two or more tables based on a related column between them.
+
+* **Theory**:
+
+  * Joins are essential for relational databases because data is spread across multiple tables.
+  * They help retrieve **meaningful information** by combining related datasets.
+
+* **Types of Joins in SQL**:
+
+  1. **INNER JOIN** → Returns only matching rows from both tables.
+  2. **LEFT OUTER JOIN** → Returns all rows from left table and matching rows from right table.
+  3. **RIGHT OUTER JOIN** → Returns all rows from right table and matching rows from left table.
+  4. **FULL OUTER JOIN** → Returns all rows when there is a match in one of the tables.
+  5. **CROSS JOIN** → Cartesian product of two tables (all combinations).
+  6. **SELF JOIN** → Join a table with itself.
+  7. **NATURAL JOIN** → Joins automatically on columns with the same name.
+
+* **Syntax & Examples**:
+
+  ```sql
+  -- INNER JOIN
+  SELECT e.emp_name, d.dept_name
+  FROM employee e
+  INNER JOIN department d
+  ON e.dept_id = d.dept_id;
+
+  -- LEFT JOIN
+  SELECT e.emp_name, d.dept_name
+  FROM employee e
+  LEFT JOIN department d
+  ON e.dept_id = d.dept_id;
+  ```
+
+* **Explanation**:
+
+  * `INNER JOIN` filters unmatched rows.
+  * `OUTER JOINs` are useful when you want to preserve all rows from one side.
+  * `CROSS JOIN` generates large outputs but rarely used.
+  * `SELF JOIN` is useful for hierarchical data (e.g., employees reporting to managers).
+
+* **Conclusion**:
+  Joins are fundamental in SQL for combining related data across tables, supporting relational database principles.
+
+---
+
+### 18. Explain concept and advantages of table partitions
+
+* **Definition**:
+  Table partitioning is the process of dividing a large table into smaller, more manageable pieces called **partitions**, while still treating them as a single logical table.
+
+* **Theory**:
+
+  * Each partition can store a subset of data.
+  * Queries automatically target relevant partitions, improving performance.
+  * Useful for very large datasets such as banking, sales, or log data.
+
+* **Types of Partitioning**:
+
+  1. **Range Partitioning** → Data divided by ranges of values.
+  2. **List Partitioning** → Based on discrete values (e.g., regions).
+  3. **Hash Partitioning** → Based on a hash function for even distribution.
+  4. **Composite Partitioning** → Combination of two partition methods.
+
+* **Syntax Example**:
+
+  ```sql
+  CREATE TABLE Sales (
+     sale_id NUMBER,
+     sale_date DATE,
+     amount NUMBER
+  )
+  PARTITION BY RANGE (sale_date)
+  (PARTITION p2023 VALUES LESS THAN (TO_DATE('01-JAN-2024','DD-MON-YYYY')),
+   PARTITION p2024 VALUES LESS THAN (TO_DATE('01-JAN-2025','DD-MON-YYYY')));
+  ```
+
+* **Advantages**:
+
+  * **Performance** → Queries scan fewer rows (partition pruning).
+  * **Manageability** → Easy to backup, load, or drop specific partitions.
+  * **Availability** → Partition failures don’t impact the entire table.
+  * **Parallelism** → Different partitions can be processed concurrently.
+  * **Scalability** → Supports handling of very large databases.
+
+* **Conclusion**:
+  Partitioning is a powerful feature in Oracle SQL that improves **query speed, data management, and scalability**, making it essential for big data systems.
+
+---
+
+### 19. Describe about concepts and features of Object-Oriented Programming (OOP)
+
+* **Definition**:
+  Object-Oriented Programming (OOP) is a programming paradigm based on the concept of **objects**, which combine data and behavior into a single unit.
+
+* **Core Concepts**:
+
+  1. **Class** → Blueprint for creating objects.
+  2. **Object** → Instance of a class.
+  3. **Encapsulation** → Wrapping of data and methods into a single unit.
+  4. **Inheritance** → Deriving new classes from existing ones.
+  5. **Polymorphism** → Ability to use a single interface with different implementations.
+  6. **Abstraction** → Hiding internal details and showing only necessary features.
+
+* **Features of OOP**:
+
+  * **Reusability** → Classes and methods can be reused.
+  * **Scalability** → Large systems can be built and maintained easily.
+  * **Modularity** → Code is divided into classes and objects.
+  * **Security** → Encapsulation protects data from unauthorized access.
+  * **Flexibility** → Polymorphism provides flexibility in method usage.
+
+* **Example (Java)**:
+
+  ```java
+  class Employee {
+      int id;
+      String name;
+      double salary;
+
+      void display() {
+          System.out.println(id + " " + name + " " + salary);
+      }
+  }
+
+  class Manager extends Employee {
+      String department;
+  }
+  ```
+
+* **Explanation**:
+
+  * Here, `Employee` is a class, and `Manager` inherits from it.
+  * Encapsulation achieved by combining data (variables) and behavior (methods).
+  * Inheritance allows reusing properties in `Manager`.
+
+* **Conclusion**:
+  OOP provides a **structured and reusable approach** to software design, making it the backbone of modern programming languages like Java, C++, and Python.
+
+---
+
+### 20. Define triggers? Explain types of triggers
+
+* **Definition**:
+  A trigger is a **stored PL/SQL block** that is automatically executed (fired) when a specified event occurs in the database, such as `INSERT`, `UPDATE`, or `DELETE`.
+
+* **Theory**:
+
+  * Triggers are used to enforce **business rules, auditing, and automatic actions**.
+  * They cannot be called directly like procedures.
+  * Oracle supports **row-level** and **statement-level** triggers.
+
+* **Types of Triggers**:
+
+  1. **Before Trigger** → Executes before an operation (e.g., before insert).
+  2. **After Trigger** → Executes after an operation.
+  3. **Instead Of Trigger** → Used with views to perform DML operations.
+  4. **Row-level Trigger** → Fires once for each row affected.
+  5. **Statement-level Trigger** → Fires once per statement, regardless of rows.
+  6. **Compound Trigger** → Combines multiple timing points in one trigger.
+
+* **Syntax Example**:
+
+  ```sql
+  CREATE OR REPLACE TRIGGER emp_audit
+  AFTER INSERT OR UPDATE ON employee
+  FOR EACH ROW
+  BEGIN
+     INSERT INTO emp_log(emp_id, action, action_date)
+     VALUES(:NEW.emp_id, 'Modified', SYSDATE);
+  END;
+  ```
+
+* **Explanation**:
+
+  * `:NEW` and `:OLD` pseudo-records are used to access new and old values.
+  * Triggers can log changes, enforce constraints, or maintain derived data.
+  * Example above automatically inserts a record in `emp_log` when employee data changes.
+
+* **Conclusion**:
+  Triggers are powerful for **automation, security, and data consistency**, but must be used carefully to avoid performance overhead.
+
+---
+
