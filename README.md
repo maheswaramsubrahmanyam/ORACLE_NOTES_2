@@ -612,3 +612,41 @@ END;
 
 ---
 
+
+
+
+
+the question **“Describe about concepts and features of object oriented programming (OOP)”** usually belongs to **Java / C++ / general programming**, not to **Oracle SQL**.
+
+But there’s a reason you might see it in an **Oracle SQL exam**:
+
+### Why it makes sense here
+
+* Oracle introduced **Object-Relational Features** (starting with Oracle 8i).
+* It allows database designers to use **OOP concepts** inside SQL/PLSQL.
+* You can define **object types (classes)**, create **objects (instances)**, and use **methods (functions/procedures)** in Oracle.
+
+### OOP in Oracle SQL
+
+1. **Object Types (like classes in OOP)**
+
+   ```sql
+   CREATE TYPE Employee AS OBJECT (
+      emp_id NUMBER,
+      emp_name VARCHAR2(50),
+      MEMBER PROCEDURE display_emp
+   );
+   ```
+
+2. **Objects (instances of types)**
+
+   ```sql
+   CREATE TABLE emp_table OF Employee;
+   ```
+
+3. **Encapsulation** → Data + methods inside object type.
+
+4. **Inheritance** → Oracle supports **subtypes** (specialization).
+
+5. **Polymorphism** → Same method name, different implementations.
+
